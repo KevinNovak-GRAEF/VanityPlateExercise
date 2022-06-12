@@ -1,6 +1,7 @@
 # The License Plate Vanity Class
 # Checks criteria for a vanity plate
 
+from cmath import log
 from unicodedata import name
 
 
@@ -8,14 +9,28 @@ class VanityPlate:
     
     # The __init__ method accepts an argument
     
-    def __init__(self,plate):
+    def __init__(self,plate,logo,collector):
         self.__plate = plate
+        self.__logo = logo
+        self.__collector = collector
 
     def set_plate(self,plate):
         self.__plate = plate
 
     def get_plate(self):
         return self.__plate
+    
+    def set_logo(self,logo):
+        self.__logo = logo
+    
+    def get_logo(self):
+        return self.__logo
+    
+    def set_collector(self,collector):
+        self.__collector = collector
+    
+    def get_collector(self):
+        return self.__collector
 
     def StartCriteria(self):
         start = self.get_plate()
@@ -30,7 +45,10 @@ class VanityPlate:
     
     def PlateMiddle(self):
         middle = self.get_plate()
-        return middle[0].isalpha() and middle[-1].isdigit()
+        if not middle.isalpha():
+            return middle[0].isalpha() and middle[-1].isdigit()
+        else:
+            return True
     
     def PlateDigitStart(self):
         digit = self.get_plate()
@@ -46,6 +64,3 @@ class VanityPlate:
     def PlatePunctuation(self):
         punctuation = self.get_plate()
         return punctuation.isalnum()
-    
-    def __str__(self):
-        return "Proposed Plate: " + self.__plate
